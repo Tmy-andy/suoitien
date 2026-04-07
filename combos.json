@@ -1,0 +1,145 @@
+[
+  {
+    "ten_combo": "Combo Tham Quan",
+    "phan_loai": "cong-vien",
+    "gia_tien": { "nguoi_lon": "255.000 VNĐ", "tre_em": "175.000 VNĐ" },
+    "hsd": "90 ngày kể từ ngày mua",
+    "description": "Combo dành cho gia đình và du khách yêu thích tham quan nhẹ nhàng, thư giãn tại Suối Tiên.",
+    "chi_tiet_dich_vu": [
+      "1 Vé vào cổng Thiên Tiên Môn (khu công viên khô)",
+      "1 Vé Xe Lửa tham quan toàn cảnh",
+      "1 Vé Massage Cá thư giãn",
+      "1 Vé tham quan Vương Quốc Cá Sấu",
+      "1 Vé tham quan Cung Vàng Điện Ngọc",
+      "1 Sản phẩm Suối Tiên Farm"
+    ],
+    "anh_nguoi_lon": "ThamQuan_NL.jpg",
+    "anh_tre_em": "ThamQuan_TE.jpg",
+    "anh_map_desk": "map_desk.jpg",
+    "anh_map_mobile": "map_mobile.jpg"
+  },
+  {
+    "ten_combo": "Combo Tham Quan & Biển Tiên Đồng",
+    "phan_loai": "cong-vien-bien",
+    "gia_tien": { "nguoi_lon": "375.000 VNĐ", "tre_em": "255.000 VNĐ" },
+    "hsd": "90 ngày kể từ ngày mua",
+    "description": "Trọn gói tham quan công viên kết hợp vui chơi giải nhiệt tại biển nhân tạo Biển Tiên Đồng – Ngọc Nữ.",
+    "chi_tiet_dich_vu": [
+      "1 Vé vào cổng Thiên Tiên Môn (khu công viên khô)",
+      "1 Vé Xe Lửa tham quan toàn cảnh",
+      "1 Vé Massage Cá thư giãn",
+      "1 Vé tham quan Vương Quốc Cá Sấu",
+      "1 Vé tham quan Cung Vàng Điện Ngọc",
+      "1 Sản phẩm Suối Tiên Farm",
+      "1 Vé vào Biển Tiên Đồng – Ngọc Nữ"
+    ],
+    "anh_nguoi_lon": "ThamQuan_cobien_NL.jpg",
+    "anh_tre_em": "ThamQuan_cobien_TE.jpg",
+    "anh_map_desk": "map_desk.jpg",
+    "anh_map_mobile": "map_mobile.jpg"
+  },
+  {
+    "ten_combo": "Combo Khám Phá",
+    "phan_loai": "cong-vien",
+    "gia_tien": { "nguoi_lon": "330.000 VNĐ", "tre_em": "220.000 VNĐ" },
+    "hsd": "90 ngày kể từ ngày mua",
+    "description": "Combo dành cho du khách muốn trải nghiệm đa dạng, kết hợp tham quan và giải trí phong phú.",
+    "chi_tiet_dich_vu": [
+      "1 Vé vào cổng Thiên Tiên Môn (khu công viên khô)",
+      "1 Vé trải nghiệm Xe Taxi Du Lịch",
+      "1 Vé tham quan Kỳ Lân Cung",
+      "1 Vé khám phá Lâu Đài Tuyết",
+      "1 Vé tham quan Âm Phủ",
+      "1 Vé phiêu lưu Rừng Phù Thủy",
+      "1 Vé trải nghiệm Cối Xay Thần Gió",
+      "1 Vé thưởng ngoạn Du Thuyền Tứ Linh"
+    ],
+    "anh_nguoi_lon": "KhamPha_NL.jpg",
+    "anh_tre_em": "KhamPha_TE.jpg",
+    "anh_map_desk": "map_desk.jpg",
+    "anh_map_mobile": "map_mobile.jpg"
+  },
+  {
+    "ten_combo": "Combo Khám Phá & Biển Tiên Đồng",
+    "phan_loai": "cong-vien-bien",
+    "gia_tien": { "nguoi_lon": "450.000 VNĐ", "tre_em": "300.000 VNĐ" },
+    "hsd": "90 ngày kể từ ngày mua",
+    "description": "Kết hợp hoàn hảo giữa khám phá công viên và giải nhiệt tại biển nhân tạo Biển Tiên Đồng – Ngọc Nữ.",
+    "chi_tiet_dich_vu": [
+      "1 Vé vào cổng Thiên Tiên Môn (khu công viên khô)",
+      "1 Vé trải nghiệm Xe Taxi Du Lịch",
+      "1 Vé tham quan Kỳ Lân Cung",
+      "1 Vé khám phá Lâu Đài Tuyết",
+      "1 Vé tham quan Âm Phủ",
+      "1 Vé phiêu lưu Rừng Phù Thủy",
+      "1 Vé trải nghiệm Cối Xay Thần Gió",
+      "1 Vé thưởng ngoạn Du Thuyền Tứ Linh",
+      "1 Vé vào Biển Tiên Đồng – Ngọc Nữ"
+    ],
+    "anh_nguoi_lon": "KhamPha_cobien_NL.jpg",
+    "anh_tre_em": "KhamPha_cobien_TE.jpg",
+    "anh_map_desk": "map_desk.jpg",
+    "anh_map_mobile": "map_mobile.jpg"
+  },
+  {
+    "ten_combo": "Combo Thử Thách",
+    "phan_loai": "cong-vien",
+    "gia_tien": { "nguoi_lon": "340.000 VNĐ", "tre_em": "Không áp dụng" },
+    "hsd": "90 ngày kể từ ngày mua",
+    "description": "Gói cảm giác mạnh dành riêng cho du khách yêu thích sự mạo hiểm và thử thách bản thân.",
+    "chi_tiet_dich_vu": [
+      "1 Vé vào cổng Thiên Tiên Môn (khu công viên khô)",
+      "1 Vé Xe Lửa tham quan",
+      "1 Vé thử thách Đĩa Bay Hành Tinh Lạ",
+      "1 Vé chinh phục Tàu Lượn Siêu Tốc",
+      "1 Vé trải nghiệm Vòng Xoay Vũ Trụ",
+      "1 Vé VR Game – Khám Phá Vũ Trụ Huyền Bí",
+      "1 Vé Thuyền Bay hoặc Thuyền Rồng"
+    ],
+    "anh_nguoi_lon": "ThuThach_NL.jpg",
+    "anh_tre_em": null,
+    "anh_map_desk": "map_desk.jpg",
+    "anh_map_mobile": "map_mobile.jpg"
+  },
+  {
+    "ten_combo": "Combo Thử Thách & Biển Tiên Đồng",
+    "phan_loai": "cong-vien-bien",
+    "gia_tien": { "nguoi_lon": "450.000 VNĐ", "tre_em": "Không áp dụng" },
+    "hsd": "90 ngày kể từ ngày mua",
+    "description": "Trọn gói cảm giác mạnh kết hợp giải nhiệt tại biển nhân tạo Biển Tiên Đồng – Ngọc Nữ.",
+    "chi_tiet_dich_vu": [
+      "1 Vé vào cổng Thiên Tiên Môn (khu công viên khô)",
+      "1 Vé Xe Lửa tham quan",
+      "1 Vé thử thách Đĩa Bay Hành Tinh Lạ",
+      "1 Vé chinh phục Tàu Lượn Siêu Tốc",
+      "1 Vé trải nghiệm Vòng Xoay Vũ Trụ",
+      "1 Vé VR Game – Khám Phá Vũ Trụ Huyền Bí",
+      "1 Vé Thuyền Bay hoặc Thuyền Rồng",
+      "1 Vé vào Biển Tiên Đồng – Ngọc Nữ"
+    ],
+    "anh_nguoi_lon": "ThuThach_cobien_NL.jpg",
+    "anh_tre_em": null,
+    "anh_map_desk": "map_desk.jpg",
+    "anh_map_mobile": "map_mobile.jpg"
+  },
+  {
+    "ten_combo": "Đua Xe Go Kart",
+    "phan_loai": "go-kart",
+    "gia_tien": {
+      "don_nguoi_lon": "100.000 VNĐ",
+      "don_tre_em": "80.000 VNĐ",
+      "xe_doi": "150.000 VNĐ"
+    },
+    "hsd": "90 ngày kể từ ngày mua",
+    "description": "Trải nghiệm đua xe tốc độ tại đường đua Go Kart. LƯU Ý: Vé này CHƯA bao gồm vé vào cổng Suối Tiên.",
+    "chi_tiet_dich_vu": [
+      "1 Vé trải nghiệm đua xe Go Kart theo loại xe",
+      "Trang bị đồ bảo hộ và hướng dẫn kỹ thuật"
+    ],
+    "anh_nguoi_lon": "go-kart-NL.jpg",
+    "anh_tre_em": "go-kart-TE.jpg",
+    "anh_xe_doi": "go-kart-XeDoi.jpg",
+    "anh_map_desk": "map_desk.jpg",
+    "anh_map_mobile": "map_mobile.jpg"
+  }
+]

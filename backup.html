@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suối Tiên - Chọn Vé</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;color:#1e1e1e;font-size:17px}
+.page{display:none}.page.active{display:block}
+.topnav{background:#fff;border-bottom:2px solid #1e7e3e;padding:11px 20px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-size:21px;font-weight:800;color:#1e7e3e;letter-spacing:1px}
+.nav-bc{font-size:14px;color:#888}.nav-bc b{color:#1e7e3e}
+.hero{background:#fff;text-align:center;padding:22px 20px 14px;border-bottom:1px solid #e0e0e0}
+.hero h1{font-size:34px;font-weight:800;color:#1e7e3e;letter-spacing:2px}
+.hero p{font-size:14px;color:#999;margin-top:3px}
+.fbar{background:#fff;padding:11px 16px;border-bottom:1px solid #e0e0e0;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.fchip{padding:8px 15px;border-radius:25px;border:1.5px solid #1e7e3e;background:transparent;color:#1e7e3e;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.2px;transition:all .2s}
+.fchip.on{background:#1e7e3e;color:#fff}
+.fsort{margin-left:auto;padding:8px 11px;border:1px solid #ccc;border-radius:8px;font-size:14px;color:#555;background:#fff;font-family:inherit;cursor:pointer}
+.gw{padding:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.card{background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e0e0e0;cursor:pointer;transition:box-shadow .3s,transform .2s}
+.card:hover{box-shadow:0 6px 22px rgba(0,0,0,0.13);transform:translateY(-2px)}
+.card:hover .cphoto{transform:scale(1.05)}
+.cimg{overflow:hidden;position:relative;background:#f2f2f2}
+.cslider{display:flex;transition:transform .5s ease}
+.cslider img{display:block;width:100%;height:auto;flex-shrink:0;transition:transform .35s}
+.card:hover .cslider img{transform:scale(1.05)}
+.cdots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:2}
+.cdot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5);border:none;padding:0;cursor:pointer;transition:background .2s}
+.cdot.on{background:#fff}
+.cbody{padding:14px 16px}
+.cprice-range{color:#e53935;font-size:22px;font-weight:800;line-height:1.3}
+.cprice-range .cprice-sep{font-size:18px;color:#e53935;font-weight:800;margin:0 5px}
+.cpricelbl{font-size:13px;color:#999;display:block;margin-top:2px}
+.cname{color:#1e7e3e;font-size:16px;font-weight:700;margin:8px 0 9px;line-height:1.35}
+.chsd{font-size:14px;color:#e65100;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:5px}
+.hd{width:5px;height:5px;border-radius:50%;background:#e65100}
+.cqty{display:flex;align-items:center;gap:6px;margin-bottom:11px}
+.cqtyl{font-size:14px;color:#555;flex:1}
+.qc{display:flex;align-items:center;border:1.5px solid #ccc;border-radius:6px;overflow:hidden}
+.qb{width:28px;height:28px;border:none;background:#f4f4f4;cursor:pointer;font-size:15px;font-weight:700;color:#333;font-family:inherit;display:flex;align-items:center;justify-content:center}
+.qb:hover{background:#e8f5e9;color:#1e7e3e}
+.qn{width:36px;height:30px;border:none;border-left:1px solid #ddd;border-right:1px solid #ddd;text-align:center;font-size:15px;font-weight:700;color:#333;background:#fff;outline:none;font-family:inherit}
+.cacts{display:flex;gap:8px}
+.bdet{flex:1;padding:10px 0;border:2px solid #1e7e3e;background:transparent;color:#1e7e3e;font-size:15px;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;transition:background .2s}
+.bdet:hover{background:#e8f5e9}
+.bbuy{flex:1;padding:10px 0;border:none;background:#1e7e3e;color:#fff;font-size:15px;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;transition:background .2s}
+.bbuy:hover{background:#145f2f}
+.dnav{background:#fff;border-bottom:1px solid #e0e0e0;padding:11px 20px;display:flex;align-items:center;gap:14px}
+.bback{background:none;border:1.5px solid #1e7e3e;border-radius:8px;color:#1e7e3e;font-size:13px;font-weight:600;padding:6px 14px;cursor:pointer;font-family:inherit;flex-shrink:0}
+.dbc{font-size:14px;color:#999}.dbc span{color:#1e7e3e;font-weight:600}
+.dbody{display:flex;gap:18px;padding:18px;align-items:flex-start}
+.dleft{flex:1;min-width:0}
+.dright{width:320px;flex-shrink:0;position:sticky;top:18px;align-self:flex-start}
+.dimg{border-radius:12px;overflow:hidden;margin-bottom:0;position:relative;background:#f2f2f2;cursor:zoom-in}
+.dgal{display:flex;transition:transform .45s ease}
+.dgal img{display:block;width:100%;height:auto;flex-shrink:0}
+.dgal-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:2}
+.dgal-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.45);border:2px solid rgba(255,255,255,.8);padding:0;cursor:pointer;transition:all .2s}
+.dgal-dot.on{background:#fff;transform:scale(1.2)}
+.dgal-arr{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border:none;border-radius:50%;background:rgba(255,255,255,.85);color:#333;font-size:18px;font-weight:700;cursor:pointer;z-index:2;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2);transition:background .2s}
+.dgal-arr:hover{background:#fff}
+.dgal-prev{left:10px}
+.dgal-next{right:10px}
+.dcombo-name{font-size:26px;font-weight:800;color:#1e7e3e;margin:14px 0 16px;line-height:1.3}
+.dphoto{display:block;width:100%;height:auto}
+.ddesc{font-size:15px;color:#555;line-height:1.7;margin-bottom:8px}
+.dsec{background:#fff;border-radius:10px;border:1px solid #e0e0e0;padding:16px 18px;margin-bottom:14px}
+.dsh{font-size:16px;font-weight:700;color:#1e1e1e;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #e0e0e0}
+.tli{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.tln{width:26px;height:26px;border-radius:50%;background:#1e7e3e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.tlm{font-size:15px;font-weight:600;color:#1e1e1e}
+.tls{font-size:14px;color:#999;margin-top:2px}
+.qib{background:#e8f5e9;border-radius:9px;padding:13px 15px;display:flex;align-items:center;gap:12px}
+.qibi{width:38px;height:38px;border-radius:50%;background:#1e7e3e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
+.qibt{font-size:15px;font-weight:700;color:#1e7e3e}
+.qibs{font-size:14px;color:#555;margin-top:2px}
+.acci{border:1px solid #e0e0e0;border-radius:8px;margin-bottom:8px;overflow:hidden}
+.acch{padding:13px 16px;background:#fff;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:600;color:#1e1e1e;user-select:none}
+.acch:hover{background:#fafafa}
+.acca{font-size:11px;color:#999;transition:transform .2s;display:inline-block}
+.accb{font-size:15px;color:#555;line-height:1.8;padding:0 16px;max-height:0;overflow:hidden;transition:max-height .28s ease,padding .28s}
+.accb.on{max-height:400px;padding:12px 16px}
+.scard{background:#fff;border-radius:12px;border:1px solid #e0e0e0;overflow:hidden;margin-bottom:12px}
+.sch{position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:0;overflow:hidden;background:#f2f2f2}
+.scb{padding:14px 18px}
+.spr{display:flex;align-items:center;margin-bottom:13px;gap:8px}
+.sprl{flex:1;font-size:15px;color:#555;min-width:0}
+.spra{font-size:15px;font-weight:700;color:#e53935;white-space:nowrap}
+.sqc{display:flex;align-items:center;border:1.5px solid #ccc;border-radius:8px;overflow:hidden;flex-shrink:0}
+.sqb{width:34px;height:34px;border:none;background:#f4f4f4;cursor:pointer;font-size:16px;font-weight:700;color:#333;font-family:inherit;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.sqb:hover{background:#e8f5e9;color:#1e7e3e}
+.sqn{width:42px;height:34px;border:none;border-left:1px solid #ddd;border-right:1px solid #ddd;text-align:center;font-size:15px;font-weight:700;color:#333;background:#fff;outline:none;font-family:inherit}
+.sqn::-webkit-inner-spin-button,.sqn::-webkit-outer-spin-button{-webkit-appearance:none;appearance:none;margin:0}
+.sqn{-moz-appearance:textfield;appearance:textfield}
+.sdiv{border:none;border-top:1px dashed #ddd;margin:12px 0}
+.stl{font-size:13px;color:#999;margin-bottom:4px}
+.stot{font-size:28px;font-weight:800;color:#e53935}
+.shsd{background:#fff3e0;border-radius:8px;padding:11px 14px;font-size:14px;color:#e65100;font-weight:600;margin-top:12px;display:flex;gap:8px;align-items:center}
+.shsdi{width:20px;height:20px;border-radius:50%;background:#e65100;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;flex-shrink:0}
+.bpay{width:100%;padding:14px;background:#e65100;color:#fff;border:none;border-radius:10px;font-size:17px;font-weight:800;cursor:pointer;margin-top:14px;font-family:inherit;letter-spacing:.3px;transition:background .2s}
+.bpay:hover{background:#bf360c}
+.bcart{width:100%;padding:12px;background:transparent;color:#1e7e3e;border:2px solid #1e7e3e;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;margin-top:8px;font-family:inherit;transition:background .2s}
+.bcart:hover{background:#e8f5e9}
+.ssup{background:#fff;border-radius:12px;border:1px solid #e0e0e0;padding:14px 18px}
+.ssup h4{font-size:14px;font-weight:600;color:#555;margin-bottom:10px}
+.supr{display:flex;gap:8px}
+.supb{flex:1;padding:10px 6px;border-radius:8px;font-size:14px;font-weight:600;text-align:center;cursor:pointer;border:none;font-family:inherit;transition:opacity .2s}
+.sup-hot{background:#e8f5e9;color:#1e7e3e}
+.sup-ch{background:#e3f2fd;color:#1565c0}
+
+/* ===== HOTSPOTS on map ===== */
+.hotspots{position:absolute;inset:0;pointer-events:none}
+.hotspot{position:absolute;pointer-events:auto;cursor:pointer;z-index:3;text-decoration:none;width:var(--hs,15%);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:transparent;border:none}
+
+/* ===== ZOOM OVERLAY ===== */
+.zoom{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:9999}
+.zoom.on{display:flex}
+.zoom-map{position:relative;max-width:92vw;max-height:92vh;cursor:grab;user-select:none}
+.zoom-map.dragging{cursor:grabbing}
+.zoom-img{display:block;max-width:92vw;max-height:92vh;object-fit:contain;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.zoom-close{position:fixed;top:16px;right:16px;width:44px;height:44px;border:none;border-radius:50%;background:rgba(255,255,255,.9);color:#1e1e1e;font-size:22px;line-height:1;cursor:pointer;z-index:10001;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.35);transition:transform .15s,background .15s}
+.zoom-close:hover{transform:scale(1.1);background:#fff}
+.zoom-hint{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);color:#fff;font-size:13px;font-weight:600;padding:8px 18px;border-radius:20px;z-index:10001;pointer-events:none;animation:hintFade 4s ease-in-out forwards;white-space:nowrap}
+.zoom-hint span{color:#8ef5a5}
+@keyframes hintFade{0%{opacity:0;transform:translateX(-50%) translateY(-10px)}10%{opacity:1;transform:translateX(-50%) translateY(0)}80%{opacity:1}100%{opacity:0}}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1200px){
+  .dright{width:300px}
+}
+@media(max-width:992px){
+  body{font-size:16px}
+  .topnav{padding:10px 16px}
+  .hero{padding:20px 16px 14px}
+  .hero h1{font-size:28px}
+  .fbar{padding:10px 14px}
+  .fsort{margin-left:0;width:auto}
+  .gw{padding:14px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+  .dbody{flex-direction:column;padding:16px}
+  .dright{width:100%;position:static;top:auto}
+  .scard,.ssup{width:100%}
+  .dnav{padding:10px 16px;flex-wrap:wrap}
+  .dbc{width:100%}
+}
+@media(max-width:768px){
+  .brand{font-size:19px}
+  .nav-bc{font-size:13px}
+  .hero h1{font-size:25px}
+  .hero p{font-size:13px}
+  .fbar{gap:6px;padding:10px 12px}
+  .fchip{font-size:12px;padding:7px 12px}
+  .fsort{width:100%;margin-top:4px}
+  .gw{padding:12px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+
+  .cbody{padding:12px 13px}
+  .cprice-range{font-size:18px}
+  .cprice-range .cprice-sep{font-size:13px}
+  .cpricelbl{font-size:12px}
+  .cname{font-size:14px;margin:6px 0 7px}
+  .chsd{font-size:12px;margin-bottom:10px}
+  .cqty{margin-bottom:9px}
+  .cqtyl{font-size:13px}
+  .cacts{flex-direction:column;gap:6px}
+  .bdet,.bbuy{width:100%;font-size:14px;padding:9px 0}
+  .dimg{margin-bottom:14px}
+  .dsec{padding:14px 16px}
+  .scb{padding:13px 16px}
+  .spr{flex-wrap:wrap;gap:8px}
+  .sprl{min-width:100px}
+  .supr{flex-direction:column}
+  .supb{width:100%}
+}
+@media(max-width:480px){
+  body{font-size:15px}
+  .topnav{padding:8px 10px}
+  .brand{font-size:17px}
+  .nav-bc{font-size:11px}
+  .hero{padding:16px 10px 10px}
+  .hero h1{font-size:22px;letter-spacing:1px}
+  .hero p{font-size:11px}
+  .fbar{padding:8px 10px;gap:5px}
+  .fchip{font-size:11px;padding:6px 10px}
+  .fsort{font-size:12px}
+  .gw{padding:10px}
+  .grid{grid-template-columns:1fr;gap:12px}
+
+  .cbody{padding:13px 14px}
+  .cprice-range{font-size:20px}
+  .cname{font-size:15px}
+  .dnav{padding:10px 12px;gap:10px}
+  .bback{font-size:12px;padding:6px 12px}
+  .dbc{font-size:12px}
+  .dbody{padding:12px}
+  .dright{width:100%;position:static;top:auto}
+  .dcombo-name{font-size:22px}
+  .dsh,.qibt{font-size:15px}
+  .tlm,.acch,.sprl,.spra{font-size:14px}
+  .tls,.qibs,.accb,.shsd{font-size:13px}
+  .sqc{margin-left:auto}
+  .sqn{width:34px}
+  .stot{font-size:24px}
+  .bpay{font-size:16px;padding:12px}
+  .bcart{font-size:15px;padding:10px}
+  .ssup h4,.supb{font-size:13px}
+}
+</style>
+</head>
+<body>
+
+<div id="pg-list" class="page active">
+  <div class="topnav">
+    <div class="brand">SUỐI TIÊN</div>
+    <div class="nav-bc">Trang chủ / <b>Chọn vé</b></div>
+  </div>
+  <div class="hero"><h1>CHỌN VÉ</h1><p>Trang chủ / Chọn vé</p></div>
+  <div class="fbar">
+    <button class="fchip on" data-tag="tat-ca">Tất cả</button>
+    <button class="fchip" data-tag="cong-vien">COMBO CÔNG VIÊN</button>
+    <button class="fchip" data-tag="cong-vien-bien">COMBO CÔNG VIÊN (+BIỂN)</button>
+    <button class="fchip" data-tag="go-kart">GO-KART</button>
+    <select class="fsort" id="fsort">
+      <option value="pop">Phổ biến nhất</option>
+      <option value="asc">Giá thấp đến cao</option>
+      <option value="desc">Giá cao đến thấp</option>
+    </select>
+  </div>
+  <div class="gw"><div class="grid" id="cgrid"></div></div>
+</div>
+
+<div id="pg-detail" class="page">
+  <div class="dnav">
+    <button class="bback" onclick="goBack()">&#8592; Quay lại</button>
+    <div class="dbc">Trang chủ / Chọn vé / <span id="dbc"></span></div>
+  </div>
+  <div class="dbody">
+    <div class="dleft">
+      <div class="dimg" onclick="openZoom()">
+        <img class="dphoto" id="dphoto" src="img/map/map_desk.jpg" alt="Bản đồ">
+      </div>
+      <div class="dcombo-name" id="ditl"></div>
+      <div class="dsec"><div class="dsh">Mô tả</div><div class="ddesc" id="ddesc"></div></div>
+      <div class="dsec"><div class="dsh">Hành trình trải nghiệm</div><div id="djny"></div></div>
+      <div class="dsec"><div class="qib"><div class="qibi" id="qibi">90</div><div><div class="qibt" id="qibt">Hạn sử dụng</div><div class="qibs" id="qibs">Kể từ ngày thanh toán thành công</div></div></div></div>
+      <div class="dsec">
+        <div class="dsh">Quy định & Chính sách</div>
+        <div class="acci"><div class="acch" onclick="toggleAcc(this)"><span>Chính sách chiều cao trẻ em</span><span class="acca">&#9660;</span></div><div class="accb">Trên 1,4m: Mua vé người lớn.<br>Từ 1m đến dưới 1,4m: Mua vé trẻ em.<br>Dưới 1m: Miễn phí (cần có người lớn đi kèm).</div></div>
+        <div class="acci"><div class="acch" onclick="toggleAcc(this)"><span>Chính sách hoàn & hủy vé</span><span class="acca">&#9660;</span></div><div class="accb">Vé đã thanh toán không được hoàn tiền. Quý khách có thể sử dụng trong vòng 90 ngày kể từ ngày mua. Mọi thắc mắc vui lòng liên hệ hotline 1900 1975.</div></div>
+        <div class="acci"><div class="acch" onclick="toggleAcc(this)"><span>Lưu ý về trang phục</span><span class="acca">&#9660;</span></div><div class="accb">Mặc trang phục thoải mái, phù hợp thời tiết. Nếu sử dụng khu vực Biển Tiên Đồng, vui lòng mang theo đồ tắm. Không mang vũ khí, chất dễ cháy vào khu vực công viên.</div></div>
+      </div>
+    </div>
+    <div class="dright">
+      <div class="scard">
+        <div class="sch" id="sch">
+          <div class="dgal" id="dgal"></div>
+          <div class="dgal-dots" id="dgalDots"></div>
+          <button class="dgal-arr dgal-prev" onclick="galNav(-1)">&#8249;</button>
+          <button class="dgal-arr dgal-next" onclick="galNav(1)">&#8250;</button>
+        </div>
+        <div class="scb">
+          <div class="spr"><div class="sprl">Người lớn</div><div class="spra" id="snl"></div><div class="sqc"><button class="sqb" onclick="chQ('nl',-1)">-</button><input class="sqn" type="number" id="qnl" value="1" min="0" max="99" oninput="calc()"><button class="sqb" onclick="chQ('nl',1)">+</button></div></div>
+          <div class="spr" id="sterow"><div class="sprl">Trẻ em</div><div class="spra" id="ste"></div><div class="sqc"><button class="sqb" onclick="chQ('te',-1)">-</button><input class="sqn" type="number" id="qte" value="0" min="0" max="99" oninput="calc()"><button class="sqb" onclick="chQ('te',1)">+</button></div></div>
+          <div class="spr" id="sdoirow" style="display:none"><div class="sprl">Xe đôi</div><div class="spra" id="sdoi"></div><div class="sqc"><button class="sqb" onclick="chQ('doi',-1)">-</button><input class="sqn" type="number" id="qdoi" value="0" min="0" max="99" oninput="calc()"><button class="sqb" onclick="chQ('doi',1)">+</button></div></div>
+          <div class="sdiv"></div>
+          <div class="stl">Tổng tạm tính</div>
+          <div class="stot" id="stot">0 đ</div>
+          <div class="shsd"><div class="shsdi" id="shsdi">90</div><span id="shsdText">HSD: 90 ngày kể từ ngày mua</span></div>
+          <button class="bpay">Thanh toán ngay</button>
+          <button class="bcart">+ Thêm vào giỏ hàng</button>
+        </div>
+      </div>
+      <div class="ssup"><h4>Hỗ trợ khách hàng</h4><div class="supr"><button class="supb sup-hot">Hotline 1900 1975</button><button class="supb sup-ch">Chat ngay</button></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="zoom" id="zoom">
+  <div class="zoom-map" id="zoomMap">
+    <img class="zoom-img" id="zoomImg" src="img/map/map_desk.jpg" alt="Bản đồ Suối Tiên">
+    <div class="hotspots" id="hotspots"></div>
+  </div>
+  <button class="zoom-close" onclick="closeZoom()">&#10005;</button>
+  <div class="zoom-hint" id="zoomHint">Chạm vào các điểm trên bản đồ để <span>xem VR 360°</span></div>
+</div>
+
+<script>
+let D = [];
+let tag = 'tat-ca', srt = 'pop', cur = null;
+const f = n => n.toLocaleString('vi-VN') + 'đ';
+const parseMoney = v => {
+  if (!v || /không áp dụng/i.test(v)) return null;
+  return parseInt(String(v).replace(/[^\d]/g, ''), 10) || 0;
+};
+const toAscii = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/Đ/g, 'D').replace(/đ/g, 'd');
+const toCode = s => toAscii(s).toUpperCase();
+
+function getTags(name) {
+  const tags = ['tat-ca'];
+  if (name) tags.push(name);
+  return [...new Set(tags)];
+}
+
+function getBadge(name) {
+  if (/Go Kart/i.test(name)) return { text: 'TỐC ĐỘ', bb: '#263238', bt: '#fff' };
+  if (/Thử Thách\s*&\s*Biển/i.test(name)) return { text: 'CẢM GIÁC MẠNH + BIỂN', bb: '#6a1b9a', bt: '#fff' };
+  if (/Khám Phá\s*&\s*Biển/i.test(name)) return { text: 'TIẾT KIỆM', bb: '#e53935', bt: '#fff' };
+  if (/Tham Quan\s*&\s*Biển|Biển Tiên Đồng/i.test(name)) return { text: 'CÓ BIỂN', bb: '#fff3e0', bt: '#e65100' };
+  if (/Thử Thách/i.test(name)) return { text: 'CẢM GIÁC MẠNH', bb: '#6a1b9a', bt: '#fff' };
+  if (/Khám Phá/i.test(name)) return { text: 'PHỔ BIẾN', bb: '#ff8f00', bt: '#fff' };
+  return { text: 'GIA ĐÌNH', bb: '#ffffff', bt: '#1e7e3e' };
+}
+
+function getComboMap(c) {
+  return window.innerWidth <= 768
+    ? (c.mapMobile || c.mapDesk || 'img/map/map_mobile.jpg')
+    : (c.mapDesk || c.mapMobile || 'img/map/map_desk.jpg');
+}
+
+function mapCombo(item, id) {
+  const badge = getBadge(item.ten_combo);
+  const services = item.chi_tiet_dich_vu || [];
+  const isGoKart = /Go Kart/i.test(item.ten_combo);
+
+  let nl, te, doi;
+  if (isGoKart) {
+    nl = parseMoney(item.gia_tien?.don_nguoi_lon) || 0;
+    te = parseMoney(item.gia_tien?.don_tre_em);
+    doi = parseMoney(item.gia_tien?.xe_doi);
+  } else {
+    nl = parseMoney(item.gia_tien?.nguoi_lon) || 0;
+    te = parseMoney(item.gia_tien?.tre_em);
+    doi = null;
+  }
+
+  // Collect all valid prices for range display
+  const allPrices = [nl, te, doi].filter(p => p !== null && p > 0);
+  const minPrice = allPrices.length ? Math.min(...allPrices) : nl;
+  const maxPrice = allPrices.length ? Math.max(...allPrices) : nl;
+
+  return {
+    id,
+    ten: item.ten_combo,
+    en: toCode(item.ten_combo),
+    badge: badge.text,
+    bb: badge.bb,
+    bt: badge.bt,
+    img: item.anh_nguoi_lon ? 'img/' + item.anh_nguoi_lon : 'img/map/map_desk.jpg',
+    imgTe: item.anh_tre_em ? 'img/' + item.anh_tre_em : null,
+    imgDoi: item.anh_xe_doi ? 'img/' + item.anh_xe_doi : null,
+    images: [
+      item.anh_nguoi_lon ? 'img/' + item.anh_nguoi_lon : null,
+      item.anh_tre_em ? 'img/' + item.anh_tre_em : null,
+      item.anh_xe_doi ? 'img/' + item.anh_xe_doi : null
+    ].filter(Boolean),
+    mapDesk: item.anh_map_desk ? 'img/map/' + item.anh_map_desk : 'img/map/map_desk.jpg',
+    mapMobile: item.anh_map_mobile ? 'img/map/' + item.anh_map_mobile : 'img/map/map_mobile.jpg',
+    nl,
+    te,
+    doi,
+    minPrice,
+    maxPrice,
+    hsd: item.hsd || '',
+    desc: item.description || '',
+    tags: getTags(item.phan_loai),
+    svcs: services,
+    jny: services.map(s => ({ l: s, s: 'Bao gồm trong combo' })),
+    isGoKart,
+    labelNl: isGoKart ? 'Vé đơn NL' : 'Người lớn',
+    labelTe: isGoKart ? 'Vé đơn TE' : 'Trẻ em',
+    labelDoi: 'Xe đôi'
+  };
+}
+
+function render() {
+  let data = D.filter(c => c.tags.includes(tag));
+  if (srt === 'asc') data.sort((a, b) => a.minPrice - b.minPrice);
+  else if (srt === 'desc') data.sort((a, b) => b.maxPrice - a.maxPrice);
+  const g = document.getElementById('cgrid');
+  g.innerHTML = '';
+  if (!data.length) {
+    g.innerHTML = '<div class="dsec">Không có combo phù hợp.</div>';
+    return;
+  }
+  data.forEach(c => {
+    const d = document.createElement('div');
+    d.className = 'card';
+
+    // Price range display
+    let priceHTML;
+    if (c.minPrice === c.maxPrice) {
+      priceHTML = '<span class="cprice-range">' + f(c.minPrice) + '</span>';
+    } else {
+      priceHTML = '<span class="cprice-range">' + f(c.minPrice) + '<span class="cprice-sep">~</span>' + f(c.maxPrice) + '</span>';
+    }
+
+    const imgs = c.images.length ? c.images : ['img/map/map_desk.jpg'];
+    const sliderImgs = imgs.map(src => '<img src="' + src + '" alt="' + c.ten + '">').join('');
+    const dots = imgs.length > 1 ? '<div class="cdots">' + imgs.map((_, i) => '<span class="cdot' + (i === 0 ? ' on' : '') + '"></span>').join('') + '</div>' : '';
+
+    d.innerHTML = '<div class="cimg"><div class="cslider">' + sliderImgs + '</div>' + dots + '</div>' +
+    '<div class="cbody">' +
+      '<div>' + priceHTML + '<span class="cpricelbl">' + (c.minPrice !== c.maxPrice ? 'Giá theo loại vé' : '/ ' + c.labelNl.toLowerCase()) + '</span></div>' +
+      '<div class="cname">' + c.ten + '</div>' +
+      '<div class="chsd"><div class="hd"></div>HSD: ' + c.hsd + '</div>' +
+      '<div class="cqty">' +
+        '<div class="cqtyl">Số lượng vé</div>' +
+        '<div class="qc"><button class="qb" onclick="event.stopPropagation();adj(this,-1)">-</button><input class="qn" type="number" value="1" min="1" max="99" onclick="event.stopPropagation()"><button class="qb" onclick="event.stopPropagation();adj(this,1)">+</button></div>' +
+      '</div>' +
+      '<div class="cacts">' +
+        '<button class="bdet" onclick="event.stopPropagation();openD(' + c.id + ')">Xem chi tiết</button>' +
+        '<button class="bbuy" onclick="event.stopPropagation();openD(' + c.id + ')">Chọn mua</button>' +
+      '</div>' +
+    '</div>';
+    g.appendChild(d);
+  });
+  startCardSliders();
+}
+
+// ===== Card auto-slide =====
+let cardTimers = [];
+function startCardSliders() {
+  cardTimers.forEach(t => clearInterval(t));
+  cardTimers = [];
+  document.querySelectorAll('.cimg').forEach(cimg => {
+    const slider = cimg.querySelector('.cslider');
+    const dots = cimg.querySelectorAll('.cdot');
+    if (!slider || dots.length < 2) return;
+    const count = dots.length;
+    let idx = 0;
+    const go = () => {
+      idx = (idx + 1) % count;
+      slider.style.transform = 'translateX(-' + (idx * 100) + '%)';
+      dots.forEach((d, i) => d.classList.toggle('on', i === idx));
+    };
+    cardTimers.push(setInterval(go, 3000));
+  });
+}
+
+// ===== Detail gallery =====
+let galIdx = 0, galImages = [], galTimer = null;
+function buildGallery(images) {
+  galImages = images.length ? images : ['img/map/map_desk.jpg'];
+  galIdx = 0;
+  const gal = document.getElementById('dgal');
+  const dots = document.getElementById('dgalDots');
+  gal.innerHTML = galImages.map(src => '<img src="' + src + '" alt="Combo">').join('');
+  dots.innerHTML = galImages.length > 1 ? galImages.map((_, i) => '<button class="dgal-dot' + (i === 0 ? ' on' : '') + '" onclick="galGo(' + i + ')"></button>').join('') : '';
+  gal.style.transform = 'translateX(0)';
+  // Show/hide arrows
+  var arrows = document.querySelectorAll('.dgal-arr');
+  arrows.forEach(a => a.style.display = galImages.length > 1 ? 'flex' : 'none');
+  // Auto-slide
+  if (galTimer) clearInterval(galTimer);
+  if (galImages.length > 1) {
+    galTimer = setInterval(() => galNav(1), 4000);
+  }
+}
+function galGo(i) {
+  galIdx = i;
+  document.getElementById('dgal').style.transform = 'translateX(-' + (galIdx * 100) + '%)';
+  document.querySelectorAll('.dgal-dot').forEach((d, j) => d.classList.toggle('on', j === galIdx));
+  if (galTimer) clearInterval(galTimer);
+  galTimer = setInterval(() => galNav(1), 4000);
+}
+function galNav(dir) {
+  galGo((galIdx + dir + galImages.length) % galImages.length);
+}
+
+function adj(btn, d) {
+  const i = btn.parentElement.querySelector('.qn');
+  i.value = Math.max(1, Math.min(99, (parseInt(i.value) || 1) + d));
+}
+
+document.querySelectorAll('.fchip').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.fchip').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    tag = b.dataset.tag;
+    render();
+  });
+});
+document.getElementById('fsort').addEventListener('change', e => { srt = e.target.value; render(); });
+
+// ===== Map hotspots (loaded from hotspots.json) =====
+let MAP_SPOTS = [];
+
+async function loadHotspots() {
+  try {
+    const res = await fetch('hotspots.json');
+    if (res.ok) MAP_SPOTS = await res.json();
+  } catch (e) { console.warn('hotspots.json not loaded', e); }
+}
+
+function renderHotspots() {
+  const container = document.getElementById('hotspots');
+  if (!MAP_SPOTS.length) { container.innerHTML = ''; return; }
+  const mobile = window.innerWidth <= 768;
+  container.innerHTML = MAP_SPOTS.map(s => {
+    const px = mobile && s.mx != null ? s.mx : s.x;
+    const py = mobile && s.my != null ? s.my : s.y;
+    const sz = mobile && s.msize != null ? s.msize : (s.size || 14);
+    return '<a class="hotspot" href="' + (s.link || '#') + '" target="_blank" rel="noopener" style="left:' + px + '%;top:' + py + '%;--hs:' + sz + '%"></a>';
+  }).join('');
+}
+
+function openD(id) {
+  cur = D.find(c => c.id === id);
+  if (!cur) return;
+  document.getElementById('dbc').textContent = cur.ten;
+  document.getElementById('dphoto').src = getComboMap(cur);
+  buildGallery(cur.images);
+  renderHotspots();
+  document.getElementById('ditl').textContent = cur.ten.toUpperCase();
+  document.getElementById('ddesc').textContent = cur.desc;
+  document.getElementById('djny').innerHTML = cur.jny.map((j, i) => '<div class="tli" id="jny-' + i + '"><div class="tln">' + (i + 1) + '</div><div><div class="tlm">' + j.l + '</div><div class="tls">' + j.s + '</div></div></div>').join('');
+  document.getElementById('snl').textContent = f(cur.nl);
+  document.querySelector('#sterow .sprl').textContent = cur.labelTe;
+  document.querySelector('.spr .sprl').textContent = cur.labelNl;
+
+  // Handle trẻ em row
+  const teRow = document.getElementById('sterow');
+  if (cur.te === null) {
+    teRow.style.display = 'none';
+  } else {
+    teRow.style.display = 'flex';
+    document.getElementById('ste').textContent = f(cur.te);
+  }
+
+  // Handle xe đôi row (Go Kart)
+  const doiRow = document.getElementById('sdoirow');
+  if (cur.doi !== null && cur.doi > 0) {
+    doiRow.style.display = 'flex';
+    document.getElementById('sdoi').textContent = f(cur.doi);
+  } else {
+    doiRow.style.display = 'none';
+  }
+
+  document.getElementById('qibt').textContent = 'Hạn sử dụng';
+  document.getElementById('qibs').textContent = cur.hsd;
+  document.getElementById('qibi').textContent = (cur.hsd.match(/\d+/) || ['90'])[0];
+  document.getElementById('shsdi').textContent = (cur.hsd.match(/\d+/) || ['90'])[0];
+  document.getElementById('shsdText').textContent = 'HSD: ' + cur.hsd;
+  document.getElementById('qnl').value = 1;
+  document.getElementById('qte').value = 0;
+  if (document.getElementById('qdoi')) document.getElementById('qdoi').value = 0;
+  calc();
+  document.getElementById('pg-list').classList.remove('active');
+  document.getElementById('pg-detail').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function goBack() {
+  document.getElementById('pg-detail').classList.remove('active');
+  document.getElementById('pg-list').classList.add('active');
+}
+
+function chQ(t, d) {
+  const map = { nl: 'qnl', te: 'qte', doi: 'qdoi' };
+  const i = document.getElementById(map[t]);
+  if (!i) return;
+  i.value = Math.max(0, Math.min(99, (parseInt(i.value) || 0) + d));
+  calc();
+}
+
+function calc() {
+  if (!cur) return;
+  const nl = parseInt(document.getElementById('qnl').value) || 0;
+  const te = parseInt(document.getElementById('qte').value) || 0;
+  const doiEl = document.getElementById('qdoi');
+  const doiQty = doiEl ? (parseInt(doiEl.value) || 0) : 0;
+  const tot = nl * cur.nl + ((cur.te || 0) * te) + ((cur.doi || 0) * doiQty);
+  document.getElementById('stot').textContent = tot.toLocaleString('vi-VN') + ' đ';
+}
+
+function toggleAcc(h) {
+  const b = h.nextElementSibling, a = h.querySelector('.acca');
+  b.classList.toggle('on');
+  a.style.transform = b.classList.contains('on') ? 'rotate(180deg)' : '';
+}
+
+/* ===== ZOOM with hotspots ===== */
+const Z = { s: 1, x: 0, y: 0, drag: false, sx: 0, sy: 0, moved: false };
+
+function applyZ() {
+  const box = document.getElementById('zoomMap');
+  if (box) box.style.transform = 'translate(' + Z.x + 'px,' + Z.y + 'px) scale(' + Z.s + ')';
+}
+
+function openZoom() {
+  document.getElementById('zoomImg').src = (cur && getComboMap(cur)) || 'img/map/map_desk.jpg';
+  renderHotspots();
+  Z.s = 1; Z.x = 0; Z.y = 0; Z.drag = false;
+  const box = document.getElementById('zoomMap');
+  box.classList.remove('dragging');
+  box.style.transform = '';
+  document.getElementById('zoom').classList.add('on');
+  document.body.style.overflow = 'hidden';
+  // Reset hint animation
+  const hint = document.getElementById('zoomHint');
+  hint.style.animation = 'none';
+  hint.offsetHeight;
+  hint.style.animation = '';
+}
+
+function closeZoom() {
+  document.getElementById('zoom').classList.remove('on');
+  document.body.style.overflow = '';
+}
+
+(function() {
+  const overlay = document.getElementById('zoom');
+  const box = document.getElementById('zoomMap');
+  if (!overlay || !box) return;
+
+  overlay.addEventListener('pointerdown', function(e) {
+    // Click overlay background = close
+    if (e.target === overlay) { closeZoom(); return; }
+    // Ignore clicks on hotspot links or close button
+    if (e.target.closest('.hotspot') || e.target.closest('.zoom-close')) return;
+    // Start drag on map container
+    e.preventDefault();
+    Z.drag = true; Z.moved = false;
+    Z.sx = e.clientX - Z.x;
+    Z.sy = e.clientY - Z.y;
+    box.classList.add('dragging');
+    box.setPointerCapture(e.pointerId);
+  });
+
+  overlay.addEventListener('pointermove', function(e) {
+    if (!Z.drag) return;
+    e.preventDefault();
+    if (Math.abs(e.clientX - Z.sx - Z.x) > 3 || Math.abs(e.clientY - Z.sy - Z.y) > 3) Z.moved = true;
+    Z.x = e.clientX - Z.sx;
+    Z.y = e.clientY - Z.sy;
+    applyZ();
+  });
+
+  overlay.addEventListener('pointerup', function(e) {
+    if (!Z.drag) return;
+    Z.drag = false;
+    box.classList.remove('dragging');
+  });
+
+  overlay.addEventListener('pointercancel', function() {
+    Z.drag = false; box.classList.remove('dragging');
+  });
+
+  // Scroll wheel zoom
+  overlay.addEventListener('wheel', function(e) {
+    e.preventDefault();
+    Z.s = Math.max(0.5, Math.min(5, Z.s + (e.deltaY < 0 ? 0.3 : -0.3)));
+    if (Z.s <= 1) { Z.x = 0; Z.y = 0; }
+    applyZ();
+  }, { passive: false });
+
+  // Pinch-to-zoom
+  let lastDist = 0;
+  overlay.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 2) {
+      lastDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+    }
+  }, { passive: true });
+  overlay.addEventListener('touchmove', function(e) {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      const d = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+      Z.s = Math.max(0.5, Math.min(5, Z.s + (d - lastDist) * 0.008));
+      lastDist = d;
+      applyZ();
+    }
+  }, { passive: false });
+})();
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeZoom();
+});
+
+window.addEventListener('resize', () => {
+  if (!cur) return;
+  document.getElementById('dphoto').src = getComboMap(cur);
+  if (document.getElementById('zoom').classList.contains('on')) {
+    document.getElementById('zoomImg').src = getComboMap(cur);
+    renderHotspots();
+  }
+});
+
+async function init() {
+  try {
+    const [comboRes] = await Promise.all([fetch('combos.json'), loadHotspots()]);
+    if (!comboRes.ok) throw new Error('Failed to load combos.json');
+    const raw = await comboRes.json();
+    D = raw.map(mapCombo);
+    render();
+  } catch (err) {
+    console.error(err);
+    document.getElementById('cgrid').innerHTML = '<div class="dsec">Không tải được dữ liệu combo. Hãy mở trang qua local server để đọc file JSON.</div>';
+  }
+}
+init();
+</script>
+</body>
+</html>

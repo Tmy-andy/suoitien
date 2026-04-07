@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suối Tiên - Chọn Vé</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ===== TRANG DANH SÁCH COMBO ===== -->
+<div id="pg-list" class="page active">
+  <!-- Top navigation -->
+  <div class="topnav">
+    <div class="brand">SUỐI TIÊN</div>
+    <div class="nav-bc">Trang chủ / <b>Chọn vé</b></div>
+  </div>
+  <!-- Hero banner -->
+  <div class="hero"><h1>CHỌN VÉ</h1><p>Trang chủ / Chọn vé</p></div>
+  <!-- Filter bar -->
+  <div class="fbar">
+    <button class="fchip on" data-tag="tat-ca">Tất cả</button>
+    <button class="fchip" data-tag="cong-vien">COMBO CÔNG VIÊN</button>
+    <button class="fchip" data-tag="cong-vien-bien">COMBO CÔNG VIÊN (+BIỂN)</button>
+    <button class="fchip" data-tag="go-kart">GO-KART</button>
+    <select class="fsort" id="fsort">
+      <option value="pop">Phổ biến nhất</option>
+      <option value="asc">Giá thấp đến cao</option>
+      <option value="desc">Giá cao đến thấp</option>
+    </select>
+  </div>
+  <!-- Card grid -->
+  <div class="gw"><div class="grid" id="cgrid"></div></div>
+</div>
+
+<!-- ===== TRANG CHI TIẾT COMBO ===== -->
+<div id="pg-detail" class="page">
+  <!-- Detail navigation -->
+  <div class="dnav">
+    <button class="bback" onclick="goBack()">&#8592; Quay lại</button>
+    <div class="dbc">Trang chủ / Chọn vé / <span id="dbc"></span></div>
+  </div>
+  <div class="dbody">
+    <!-- Cột trái: bản đồ + thông tin -->
+    <div class="dleft">
+      <!-- Ảnh bản đồ (click để zoom) -->
+      <div class="dimg" onclick="openZoom()">
+        <img class="dphoto" id="dphoto" src="img/map/map_desk.jpg" alt="Bản đồ">
+      </div>
+      <!-- Tên combo -->
+      <div class="dcombo-name" id="ditl"></div>
+      <!-- Mô tả -->
+      <div class="dsec"><div class="dsh">Mô tả</div><div class="ddesc" id="ddesc"></div></div>
+      <!-- Hành trình trải nghiệm -->
+      <div class="dsec"><div class="dsh">Hành trình trải nghiệm</div><div id="djny"></div></div>
+      <!-- Hạn sử dụng -->
+      <div class="dsec"><div class="qib"><div class="qibi" id="qibi">90</div><div><div class="qibt" id="qibt">Hạn sử dụng</div><div class="qibs" id="qibs">Kể từ ngày thanh toán thành công</div></div></div></div>
+      <!-- Quy định & Chính sách (accordion) -->
+      <div class="dsec">
+        <div class="dsh">Quy định & Chính sách</div>
+        <div class="acci"><div class="acch" onclick="toggleAcc(this)"><span>Chính sách chiều cao trẻ em</span><span class="acca">&#9660;</span></div><div class="accb">Trên 1,4m: Mua vé người lớn.<br>Từ 1m đến dưới 1,4m: Mua vé trẻ em.<br>Dưới 1m: Miễn phí (cần có người lớn đi kèm).</div></div>
+        <div class="acci"><div class="acch" onclick="toggleAcc(this)"><span>Chính sách hoàn & hủy vé</span><span class="acca">&#9660;</span></div><div class="accb">Vé đã thanh toán không được hoàn tiền. Quý khách có thể sử dụng trong vòng 90 ngày kể từ ngày mua. Mọi thắc mắc vui lòng liên hệ hotline 1900 1975.</div></div>
+        <div class="acci"><div class="acch" onclick="toggleAcc(this)"><span>Lưu ý về trang phục</span><span class="acca">&#9660;</span></div><div class="accb">Mặc trang phục thoải mái, phù hợp thời tiết. Nếu sử dụng khu vực Biển Tiên Đồng, vui lòng mang theo đồ tắm. Không mang vũ khí, chất dễ cháy vào khu vực công viên.</div></div>
+      </div>
+    </div>
+    <!-- Cột phải: sidebar mua vé -->
+    <div class="dright">
+      <div class="scard">
+        <!-- Gallery ảnh combo -->
+        <div class="sch" id="sch">
+          <div class="dgal" id="dgal"></div>
+          <div class="dgal-dots" id="dgalDots"></div>
+          <button class="dgal-arr dgal-prev" onclick="galNav(-1)">&#8249;</button>
+          <button class="dgal-arr dgal-next" onclick="galNav(1)">&#8250;</button>
+        </div>
+        <!-- Bảng giá & số lượng -->
+        <div class="scb">
+          <div class="spr"><div class="sprl">Người lớn</div><div class="spra" id="snl"></div><div class="sqc"><button class="sqb" onclick="chQ('nl',-1)">-</button><input class="sqn" type="number" id="qnl" value="1" min="0" max="99" oninput="calc()"><button class="sqb" onclick="chQ('nl',1)">+</button></div></div>
+          <div class="spr" id="sterow"><div class="sprl">Trẻ em</div><div class="spra" id="ste"></div><div class="sqc"><button class="sqb" onclick="chQ('te',-1)">-</button><input class="sqn" type="number" id="qte" value="0" min="0" max="99" oninput="calc()"><button class="sqb" onclick="chQ('te',1)">+</button></div></div>
+          <div class="spr" id="sdoirow" style="display:none"><div class="sprl">Xe đôi</div><div class="spra" id="sdoi"></div><div class="sqc"><button class="sqb" onclick="chQ('doi',-1)">-</button><input class="sqn" type="number" id="qdoi" value="0" min="0" max="99" oninput="calc()"><button class="sqb" onclick="chQ('doi',1)">+</button></div></div>
+          <div class="sdiv"></div>
+          <!-- Tổng tiền -->
+          <div class="stl">Tổng tạm tính</div>
+          <div class="stot" id="stot">0 đ</div>
+          <!-- HSD -->
+          <div class="shsd"><div class="shsdi" id="shsdi">90</div><span id="shsdText">HSD: 90 ngày kể từ ngày mua</span></div>
+          <!-- Nút hành động -->
+          <button class="bpay">Thanh toán ngay</button>
+          <button class="bcart">+ Thêm vào giỏ hàng</button>
+        </div>
+      </div>
+      <!-- Hỗ trợ khách hàng -->
+      <div class="ssup"><h4>Hỗ trợ khách hàng</h4><div class="supr"><button class="supb sup-hot">Hotline 1900 1975</button><button class="supb sup-ch">Chat ngay</button></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ZOOM OVERLAY (bản đồ phóng to + hotspots VR360) ===== -->
+<div class="zoom" id="zoom">
+  <div class="zoom-map" id="zoomMap">
+    <img class="zoom-img" id="zoomImg" src="img/map/map_desk.jpg" alt="Bản đồ Suối Tiên">
+    <div class="hotspots" id="hotspots"></div>
+  </div>
+  <button class="zoom-close" onclick="closeZoom()">&#10005;</button>
+  <div class="zoom-hint" id="zoomHint">Chạm vào các điểm trên bản đồ để <span>xem VR 360°</span></div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script src="app.js"></script>
+</body>
+</html>

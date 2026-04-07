@@ -1,0 +1,12 @@
+[
+  { "n": 1,  "x": 14,    "y": 33.5, "mx": 32,    "my": 22,    "size": 14, "msize": 18.5, "name": "Cổng Thiên Tiên Môn",       "link": "https://testvr04.vt360.vn/" },
+  { "n": 2,  "x": 33.05, "y": 33.5, "mx": 71.3,  "my": 24,    "size": 14, "msize": 18.5, "name": "Tượng Tỳ Hưu",              "link": "https://testvr04.vt360.vn/" },
+  { "n": 3,  "x": 51.7,  "y": 33.5, "mx": 31.8,  "my": 37.8,  "size": 14, "msize": 18.5, "name": "Thiên Đăng Bảo Tháp",       "link": "https://testvr04.vt360.vn/" },
+  { "n": 4,  "x": 70,    "y": 33.5, "mx": 72.5,  "my": 39.95, "size": 14, "msize": 18.5, "name": "Trạm Xe Taxi",              "link": "https://testvr04.vt360.vn/" },
+  { "n": 5,  "x": 88.2,  "y": 33.5, "mx": 31.3,  "my": 53,    "size": 14, "msize": 18.5, "name": "Đền Hùng",                  "link": "https://testvr04.vt360.vn/" },
+  { "n": 6,  "x": 14.2,  "y": 75.6, "mx": 74.7,  "my": 55,    "size": 14, "msize": 18.5, "name": "Cổng Thần Tiên",            "link": "https://testvr04.vt360.vn/" },
+  { "n": 7,  "x": 33.05, "y": 75.6, "mx": 31.3,  "my": 69,    "size": 14, "msize": 18.5, "name": "Cầu Bạch Tượng",            "link": "https://testvr04.vt360.vn/" },
+  { "n": 8,  "x": 51.7,  "y": 75.6, "mx": 74,    "my": 70.3,  "size": 14, "msize": 18.5, "name": "Cây Ước Nguyện",            "link": "https://testvr04.vt360.vn/" },
+  { "n": 9,  "x": 70,    "y": 75.6, "mx": 32.95, "my": 85,    "size": 14, "msize": 18.5, "name": "Núi Bảy Cô Tiên",           "link": "https://testvr04.vt360.vn/" },
+  { "n": 10, "x": 88.2,  "y": 75.6, "mx": 74.4,  "my": 85.7,  "size": 14, "msize": 18.5, "name": "Biển Tiên Đồng - Ngọc Nữ",  "link": "https://testvr04.vt360.vn/" }
+]
