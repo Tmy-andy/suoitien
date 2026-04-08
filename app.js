@@ -284,7 +284,7 @@ function renderHotspots() {
     const px = mobile && s.mx != null ? s.mx : s.x;
     const py = mobile && s.my != null ? s.my : s.y;
     const sz = mobile && s.msize != null ? s.msize : (s.size || 14);
-    return '<a class="hotspot" href="' + (s.link || '#') + '" target="_blank" rel="noopener" style="left:' + px + '%;top:' + py + '%;--hs:' + sz + '%"></a>';
+    return '<a class="hotspot" href="' + (s.link || '#') + '" style="left:' + px + '%;top:' + py + '%;--hs:' + sz + '%"></a>';
   }).join('');
 }
 
